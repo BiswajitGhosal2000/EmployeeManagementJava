@@ -12,13 +12,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -114,10 +109,9 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
 
         try {
             boolean res = LoginService.sendData(this);
-            if (res){
+            if (res) {
                 result = "SUCCESS";
-            }
-            else{
+            } else {
                 String alreadyExist = "Email Id Already Exist";
                 sessionMap.put("AlreadyExist", alreadyExist);
             }

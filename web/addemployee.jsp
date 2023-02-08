@@ -1,10 +1,3 @@
-<%@page import="com.exavalu.services.DepartmentService"%>
-<%@page import="com.exavalu.services.RoleService"%>
-<%@page import="com.exavalu.models.Role"%>
-<%@page import="com.exavalu.models.Department"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.exavalu.models.Employee"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${empty sessionScope.User}" >
     <jsp:forward page="login.jsp"/>
@@ -26,7 +19,7 @@
                     <c:if test="${not empty SuccessMsg}">
                         <h1 style="color: green"><c:out value="${SuccessMsg}"/></h1>
                         <c:remove var="SuccessMsg" scope="session"/>
-                    <% response.setHeader("Refresh", "3;url=home.jsp"); %>
+                        <% response.setHeader("Refresh", "3;url=home.jsp");%>
                     </c:if>
                     <c:if test="${not empty ErrorMsg}">
                         <h1 style="color: red"><c:out value="${ErrorMsg}"/></h1>
