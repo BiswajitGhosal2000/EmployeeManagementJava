@@ -168,7 +168,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             sessionMap.put("User", this);
         }
         
-        if (this.getCountryCode() != null && this.getStateCode() != null && this.getDistrictCode() != null) {
+        if (this.firstName != null && this.firstName.length()>0 && this.lastName != null && this.lastName.length()>0 && this.emailAddress != null && this.emailAddress.length()>0 && this.password!= null && this.password.length()>0 && this.stateCode != null && this.stateCode.length() > 0 && this.countryCode != null && this.countryCode.length() > 0 && this.districtCode != null && this.districtCode.length() > 0) {
             System.out.println(firstName + lastName +  emailAddress + password+ this.getStateCode()+ this.getCountryCode()+ this.getDistrictCode());
             boolean res = UserService.sendData(this);
             if (res) {

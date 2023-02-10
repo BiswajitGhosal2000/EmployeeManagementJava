@@ -53,12 +53,15 @@ public class UserService {
     public static boolean sendData(User user) throws IOException {
         boolean result = false;
         try (Connection con = JDBCConnectionManager.getConnection()) {
-            String sql2 = "INSERT INTO users (emailAddress, password, firstName, lastName) values(?,?,?,?)";
+            String sql2 = "INSERT INTO users (emailAddress, password, firstName, lastName,countryCode,stateCode,districtCode) values(?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql2);
             preparedStatement.setString(1, user.getEmailAddress());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getFirstName());
             preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getCountryCode());
+            preparedStatement.setString(6, user.getStateCode());
+            preparedStatement.setString(7, user.getDistrictCode());
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             if (row != 0) {
