@@ -33,9 +33,13 @@
             <result name="SUCCESS">searchemployee.jsp</result>
             <result name="FAILURE">searchemployee.jsp</result>
         </action>
-        <action name="Signup" class="com.exavalu.models.User" method="addUser">
+        <action name="PreSignUp" class="com.exavalu.models.User" method="preSignup">
             <result name="SUCCESS">login.jsp</result>
             <result name="FAILURE">signup.jsp</result>
-        </action>      
+        </action>
+<!--        <action name="Signup" class="com.exavalu.models.User" method="addUser">
+            <result name="SUCCESS">login.jsp</result>
+            <result name="FAILURE">signup.jsp</result>
+        </action>-->
     </package>
 </struts>
