@@ -35,11 +35,21 @@
         </action>
         <action name="PreSignUp" class="com.exavalu.models.User" method="preSignup">
             <result name="SUCCESS">login.jsp</result>
+            <result name="STATELIST">statelist.jsp</result>
+            <result name="DISTLIST">districtlist.jsp</result>
             <result name="FAILURE">signup.jsp</result>
         </action>
-<!--        <action name="Signup" class="com.exavalu.models.User" method="addUser">
+<!--    <action name="Signup" class="com.exavalu.models.User" method="addUser">
             <result name="SUCCESS">login.jsp</result>
             <result name="FAILURE">signup.jsp</result>
         </action>-->
+<!--    <action name="AddTodo" class="com.exavalu.models.External" method="addTodo">
+            <result name="SUCCESS">external.jsp</result>
+            <result name="FAILURE">external.jsp</result>
+        </action>-->
+        <action name="AddExternal" class="com.exavalu.models.External" method="addExternal">
+            <result name="SUCCESS">external.jsp</result>
+            <result name="FAILURE">external.jsp</result>
+        </action>
     </package>
 </struts>

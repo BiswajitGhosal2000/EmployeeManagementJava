@@ -280,7 +280,7 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             sessionMap.put("EmpList", empList);
             res = "SUCCESS";
         } else {
-            String errorMsg = "Employee Added Successfully";
+            String errorMsg = "Something error occured";
             sessionMap.put("ErrorMsg", errorMsg);
         }
         return res;
@@ -333,15 +333,15 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
         }
         return res;
     }
+
     public String searchEmployee() throws Exception {
         String res = "FAILURE";
-        ArrayList emps = EmployeeService.searchEmployee(firstName,lastName, gender, departmentName, roleName);
-        
+        ArrayList emps = EmployeeService.searchEmployee(firstName, lastName, gender, departmentName, roleName);
+
         if (!emps.isEmpty()) {
             sessionMap.put("Emps", emps);
             res = "SUCCESS";
         }
         return res;
     }
-    
 }

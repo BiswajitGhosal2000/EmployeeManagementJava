@@ -13,6 +13,7 @@
         <title>Sign Up Page</title>
         <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/signin.css" rel="stylesheet">
+        
     </head>
     <body class="text-center">
         <main class="form-signin w-100 m-auto">
@@ -41,39 +42,44 @@
                     <input type="text" class="form-control" id="floatingInput" placeholder="Password" name="lastName" value="${User.lastName}" required>
                     <label for="floatingInput">Last Name</label>
                 </div>
-                <%--<c:set var="user" value="${User}"></c:set>--%>
-                    <div class="form-floating">
-                        <select name="countryCode" class="form-control" id="countryCode" onchange="getsignUp()" required>
-                            <option value="" hidden>Select Country</option>
-                        <c:forEach var="country" items="${CountryList}">
-                            <option value=${country.getCountryCode()}<c:if test="${country.getCountryCode().equalsIgnoreCase(User.getCountryCode())}"> selected </c:if>> ${country.getCountryName()}  </option>
+                <div class="form-floating">
+                    <select name="countryCode" class="form-select" id="countryCode" onchange="fetchContent('countryCode', 'stateCode')">
+                        <option value="">Select a Country</option>
+                        <c:forEach items="${CountryList}" var="country">
+                            <option value='${country.getCountryCode()}' <c:if test="${country.getCountryCode() == User.getCountryCode()}" > selected </c:if>> 
+                                ${country.getCountryName()}
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="form-floating">
-                    <select name="stateCode" class="form-control" id="stateCode" onchange="getsignUp()" required>
-                        <option value="" hidden>Select State</option>
-                        <c:forEach var="state" items="${StateList}">
-                            <option value=${state.getStateCode()}<c:if test="${state.getStateCode().equalsIgnoreCase(User.getStateCode())}"> selected </c:if>> ${state.getStateName()}  </option>
-                        </c:forEach>
+                    <select name="stateCode" class="form-select" id="stateCode" onchange="fetchContent('stateCode', 'districtCode')">
+                        <option value="" hidden>Select a State</option>
                     </select>
                 </div>
                 <div class="form-floating">
-                    <select name="districtCode" class="form-control" id="districtCode" required>
-                        <option value="" hidden>Select District</option>
-                        <c:forEach var="dist" items="${DistList}">
-                            <option value=${dist.getDistrictCode()}<c:if test="${dist.getDistrictCode().equalsIgnoreCase(User.getDistrictCode())}"> selected </c:if>> ${dist.getDistrictName()}  </option>
-                        </c:forEach>
+                    <select name="districtCode" class="form-select" id="districtCode" required>
+                        <option value="" hidden>Select a District</option>
                     </select>
                 </div>
                 <button class="w-100 btn btn btn-primary" type="submit">Submit</button>
             </form>
             <a href="home.jsp">Go Back</a>
         </main>
+        <script src="https://code.jquery.com/jquery-3.6.3.js" ></script>
         <script>
-            function getsignUp() {
-                signupform.submit();
-            }
+            function fetchContent(selectedId, targetId)
+                {
+                $.ajax({
+                    url: 'PreSignUp',
+                    data: {
+                        [selectedId]: $("#" + selectedId).val()
+                    },
+                    success: function (responseText) {
+                        $("#" + targetId).html(responseText);
+                    }
+                });
+                }
         </script>
     </body>
 </html>

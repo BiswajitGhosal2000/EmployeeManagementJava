@@ -160,12 +160,14 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             stateList = UserService.getAllState(this.getCountryCode());
             sessionMap.put("StateList", stateList);
             sessionMap.put("User", this);
+            result = "STATELIST";
         }
-        if (this.getCountryCode() != null && this.getStateCode() != null) {
+        if (this.getStateCode() != null) {
             System.out.println("State Code:" + this.getStateCode());
             distList = UserService.getAllDistrct(this.getStateCode());
             sessionMap.put("DistList", distList);
             sessionMap.put("User", this);
+            result = "DISTLIST";
         }
         
         if (this.firstName != null && this.firstName.length()>0 && this.lastName != null && this.lastName.length()>0 && this.emailAddress != null && this.emailAddress.length()>0 && this.password!= null && this.password.length()>0 && this.stateCode != null && this.stateCode.length() > 0 && this.countryCode != null && this.countryCode.length() > 0 && this.districtCode != null && this.districtCode.length() > 0) {
@@ -173,24 +175,13 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             boolean res = UserService.sendData(this);
             if (res) {
                 result = "SUCCESS";
+                sessionMap.clear();
             } else {
                 String alreadyExist = "Email Id Already Exist";
                 sessionMap.put("AlreadyExist", alreadyExist);
             }
+            
         }
         return result;
     }
-
-//    public String addUser() throws IOException {
-//        String result = "FAILURE";
-//        System.out.println(firstName+emailAddress+lastName+password);
-//        boolean res = UserService.sendData(this);
-//        if (res) {
-//            result = "SUCCESS";
-//        } else {
-//            String alreadyExist = "Email Id Already Exist";
-//            sessionMap.put("AlreadyExist", alreadyExist);
-//        }
-//        return result;
-//    }
 }

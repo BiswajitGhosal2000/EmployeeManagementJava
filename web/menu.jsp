@@ -17,7 +17,7 @@
                 <a class="nav-link" href="searchemployee.jsp">Search Employee</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Update Employee</a>
+                <a class="nav-link" href="external.jsp">Add External Data</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
