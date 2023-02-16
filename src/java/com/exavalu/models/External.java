@@ -4,12 +4,15 @@
  */
 package com.exavalu.models;
 
+import static com.exavalu.models.User.logger;
 import com.exavalu.services.ExternalService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -21,6 +24,7 @@ import org.json.simple.parser.ParseException;
  * @author Biswajit
  */
 public class External extends ActionSupport implements ApplicationAware, SessionAware, Serializable {
+    static Logger logger = Logger.getLogger(External.class.getName());
 
     private String userId;
     private String id;
@@ -83,6 +87,7 @@ public class External extends ActionSupport implements ApplicationAware, Session
             String failureMsg = "Something Went Wrong!!!!";
             sessionMap.put("FailureMsg", failureMsg);
             System.out.println("Returning From Failure");
+            logger.error("Couldn't add External Data" + LocalDateTime.now());
         }
         return result;
     }

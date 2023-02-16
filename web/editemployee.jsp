@@ -1,27 +1,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="com.exavalu.models.Role"%>
-<%@page import="com.exavalu.models.Department"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.exavalu.models.Employee"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="${empty sessionScope.User}" >
+    <jsp:forward page="login.jsp"/>
+</c:if>
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">    
-        <title>Edit Employee Details</title>
+        <title>Employee Management Web Application</title>
+        <link rel="SHORTCUT ICON" href="img/profilePhoto.png">
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/home.css"/>
+        <!-- Custom styles for this template -->
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     </head>
     <body class="text-center">
-        <jsp:include page="menu.jsp"/>
-            <main role="main">
+        <jsp:include page="menu.jsp"></jsp:include>
+            <main role="main" id = "changeableArea">
                 <div class="jumbotron">
                     <div class="container">
                         <h1 class="display-5">Edit employee data</h1>
                     </div>
                     <div class="form-control w-25 m-auto p-4">
                     <c:set var="emp" value="${Emp}"/>
-                    <form action="SaveEmployee" method="Post">
+                    <form action="SaveEmployee" method="post">
 
                         <input class="form-control" id="floatingInput" placeholder="Employee Id" name="employeeId" value="${emp.getEmployeeId()}" readonly>
 
@@ -37,9 +39,9 @@
                             <option value="" hidden>${emp.getGender()}</option>
                             <option value="Male" <c:if test='${emp.getGender().equalsIgnoreCase("Male")}'>selected</c:if>> Male  </option>
                             <option value="Female" <c:if test='${emp.getGender().equalsIgnoreCase("Female")}'>selected</c:if> > Female  </option>
-                        </select>
+                            </select>
 
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Age" name="age" value="${emp.getAge()}">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Age" name="age" value="${emp.getAge()}">
 
                         <select name="departmentId" class="form-control" id="departmentId">
                             <option value="0">Select a Department</option>

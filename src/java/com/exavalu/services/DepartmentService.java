@@ -10,13 +10,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Biswajit
  */
 public class DepartmentService {
+    static Logger logger = Logger.getLogger(DepartmentService.class.getName());
 
     public static ArrayList getAllDepartment() {
 
@@ -41,8 +44,9 @@ public class DepartmentService {
             }
             con.close();
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
         }
-System.out.println("Department List:"+deptList.size());
+        System.out.println("Department List:"+deptList.size());
         return deptList;
     }
 }

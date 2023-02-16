@@ -4,18 +4,22 @@
  */
 package com.exavalu.models;
 
+import static com.exavalu.models.User.logger;
 import com.exavalu.services.EmployeeService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 public class Employee extends ActionSupport implements ApplicationAware, SessionAware, Serializable {
+    static Logger logger = Logger.getLogger(Employee.class.getName());
 
     private int employeeId;
     private String firstName;
@@ -258,23 +262,10 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
 
     public String addNewEmployee() throws Exception {
         String res = "FAILURE";
-        Employee addEmp = new Employee();
-        addEmp.setFirstName(firstName);
-        addEmp.setLastName(lastName);
-        addEmp.setAddress(address);
-        addEmp.setPhoneNo(phoneNo);
-        addEmp.setGender(gender);
-        addEmp.setDepartmentId(departmentId);
-        addEmp.setRoleId(roleId);
-        addEmp.setAge(age);
-        addEmp.setBasicSalary(basicSalary);
-        addEmp.setCarAllowance(carAllowance);
-        addEmp.setSpecialAllowance(specialAllowance);
-
-        boolean result = EmployeeService.addEmployee(addEmp);
-        ArrayList empList = EmployeeService.getAllEmployees();
-
+        
+        boolean result = EmployeeService.addEmployee(this);
         if (result) {
+            ArrayList empList = EmployeeService.getAllEmployees();
             String successMsg = "Employee Added Successfully";
             sessionMap.put("SuccessMsg", successMsg);
             sessionMap.put("EmpList", empList);
@@ -282,6 +273,7 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
         } else {
             String errorMsg = "Something error occured";
             sessionMap.put("ErrorMsg", errorMsg);
+            logger.error("Could Not add new Employee" + LocalDateTime.now());
         }
         return res;
     }
@@ -292,6 +284,9 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
         if (employeeId != 0) {
             sessionMap.put("Emp", emp);
             res = "SUCCESS";
+        }
+        else{
+            logger.error("Could not get Employee Details" + LocalDateTime.now());
         }
         return res;
     }
@@ -319,6 +314,7 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             res = "SUCCESS";
         } else {
             sessionMap.put("Emp", emp);
+            logger.error("Could not update Employee Details" + LocalDateTime.now());
         }
         return res;
     }
@@ -331,16 +327,38 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             sessionMap.put("EmpList", empList);
             res = "SUCCESS";
         }
+        else{
+            logger.error("Could not delete Employee Details" + LocalDateTime.now());
+        }
         return res;
     }
 
     public String searchEmployee() throws Exception {
+        System.out.println("SEARCH RESULT :"+firstName);
         String res = "FAILURE";
         ArrayList emps = EmployeeService.searchEmployee(firstName, lastName, gender, departmentName, roleName);
 
         if (!emps.isEmpty()) {
             sessionMap.put("Emps", emps);
             res = "SUCCESS";
+        }
+        else{
+            logger.error("Could not search Employee Details" + LocalDateTime.now());
+        }
+        return res;
+    }
+    public String showEmployee() throws Exception {
+        String res = "FAILURE";
+        ArrayList empList = EmployeeService.getAllEmployees();
+
+        if (!empList.isEmpty()) {
+            sessionMap.put("EmpList", empList);
+            res = "SUCCESS";
+        }
+        else{
+            String empMsg = "There is some problem in fetching the Employees";
+            sessionMap.put("EmpMsg", empMsg);
+            logger.error("Could not show Employee Details" + LocalDateTime.now());
         }
         return res;
     }

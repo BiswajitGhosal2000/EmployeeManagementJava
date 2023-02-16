@@ -14,13 +14,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Biswajit
  */
 public class UserService {
+
+    static Logger logger = Logger.getLogger(UserService.class.getName());
 
     public static boolean doLogin(User user) {
         boolean success = false;
@@ -42,11 +46,9 @@ public class UserService {
                 user.setLastName(rs.getString("lastName"));
                 success = true;
             }
-
         } catch (SQLException ex) {
-
+            logger.error(ex.getMessage() + LocalDateTime.now());
         }
-
         return success;
     }
 
@@ -67,13 +69,14 @@ public class UserService {
             if (row != 0) {
                 result = true;
             }
-            //con.close();
+            con.close();
         } catch (SQLException ex) {
             int errorCode = ex.getErrorCode();
             System.out.println("Error Code =" + errorCode);
             if (errorCode != 1062) {
                 result = false;
             }
+            logger.error(ex.getMessage() + LocalDateTime.now());
         }
         return result;
     }
@@ -98,7 +101,7 @@ public class UserService {
             }
 
         } catch (SQLException ex) {
-
+            logger.error(ex.getMessage() + "@" + LocalDateTime.now());
         }
 
         return countryList;
@@ -126,7 +129,7 @@ public class UserService {
             }
 
         } catch (SQLException ex) {
-
+            logger.error(ex.getMessage() + LocalDateTime.now());
         }
 
         return stateList;
@@ -152,9 +155,9 @@ public class UserService {
                 dist.setStateCode(rs.getString("stateCode"));
                 distList.add(dist);
             }
-
+            con.close();
         } catch (SQLException ex) {
-
+            logger.error(ex.getMessage() + LocalDateTime.now());
         }
         return distList;
     }

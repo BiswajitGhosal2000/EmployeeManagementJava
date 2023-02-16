@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="${empty sessionScope.User}" >
+    <jsp:forward page="login.jsp"/>
+</c:if>
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,7 +15,7 @@
     </head>
     <body class="text-center">
         <jsp:include page="menu.jsp"></jsp:include>
-        <main>
+        <main id="changeableArea">
             <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

@@ -12,8 +12,10 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -24,6 +26,8 @@ import org.apache.struts2.interceptor.SessionAware;
  * @author Biswajit
  */
 public class User extends ActionSupport implements ApplicationAware, SessionAware, Serializable {
+
+    static Logger logger = Logger.getLogger(User.class.getName());
 
     private String emailAddress;
     private String password;
@@ -140,6 +144,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             String loginErrorMsg = "Either Email or Password is Wrong!";
             sessionMap.put("LoginErrorMsg", loginErrorMsg);
             System.out.println("returning Failure from doLogin method");
+            logger.error("Either Email or Password is Wrong." + LocalDateTime.now());
         }
         return result;
     }
@@ -169,18 +174,19 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             sessionMap.put("User", this);
             result = "DISTLIST";
         }
-        
-        if (this.firstName != null && this.firstName.length()>0 && this.lastName != null && this.lastName.length()>0 && this.emailAddress != null && this.emailAddress.length()>0 && this.password!= null && this.password.length()>0 && this.stateCode != null && this.stateCode.length() > 0 && this.countryCode != null && this.countryCode.length() > 0 && this.districtCode != null && this.districtCode.length() > 0) {
-            System.out.println(firstName + lastName +  emailAddress + password+ this.getStateCode()+ this.getCountryCode()+ this.getDistrictCode());
+
+        if (this.firstName != null && this.firstName.length() > 0 && this.lastName != null && this.lastName.length() > 0 && this.emailAddress != null && this.emailAddress.length() > 0 && this.password != null && this.password.length() > 0 && this.stateCode != null && this.stateCode.length() > 0 && this.countryCode != null && this.countryCode.length() > 0 && this.districtCode != null && this.districtCode.length() > 0) {
+            System.out.println(firstName + lastName + emailAddress + password + this.getStateCode() + this.getCountryCode() + this.getDistrictCode());
             boolean res = UserService.sendData(this);
             if (res) {
                 result = "SUCCESS";
                 sessionMap.clear();
             } else {
+                result = "FAILURE";
                 String alreadyExist = "Email Id Already Exist";
                 sessionMap.put("AlreadyExist", alreadyExist);
+                logger.error("Something Went error in Sign Up    " + LocalDateTime.now());
             }
-            
         }
         return result;
     }

@@ -64,7 +64,7 @@
                 </div>
                 <button class="w-100 btn btn btn-primary" type="submit">Submit</button>
             </form>
-            <a href="home.jsp">Go Back</a>
+            <a href="landingpage.jsp">Go Back</a>
         </main>
         <script src="https://code.jquery.com/jquery-3.6.3.js" ></script>
         <script>

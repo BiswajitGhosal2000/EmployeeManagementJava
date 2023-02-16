@@ -7,13 +7,16 @@ package com.exavalu.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Avijit Chattopadhyay
  */
 public class JDBCUtility {
+    static Logger logger = Logger.getLogger(JDBCUtility.class.getName());
 
     public static JDBCUtility jdbcUtility = null;
 
@@ -35,8 +38,9 @@ public class JDBCUtility {
 
             value = prop.getProperty(param);
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
             // TODO Auto-generated catch block
+            logger.error(ex.getMessage() + LocalDateTime.now());
         }
 
         return value;

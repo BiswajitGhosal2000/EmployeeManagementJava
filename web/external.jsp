@@ -1,24 +1,22 @@
-<%-- 
-    Document   : external
-    Created on : 10-Feb-2023, 7:23:26 pm
-    Author     : Biswajit
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${empty sessionScope.User}" >
     <jsp:forward page="login.jsp"/>
 </c:if>
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">    
-        <title>Add Employee Details</title>
+        <title>Employee Management Web Application</title>
+        <link rel="SHORTCUT ICON" href="img/profilePhoto.png">
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/home.css"/>
+        <!-- Custom styles for this template -->
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     </head>
     <body class="text-center">
         <jsp:include page="menu.jsp"></jsp:include>
-            <main role="main">
+            <main role="main" id = "changeableArea">
                 <div class="jumbotron">
                 <c:set var="msg" value="${SuccessMsg}"/>                   
                 <c:if test="${msg!=null}">
@@ -34,11 +32,11 @@
                 </c:if>
 
 
-                <form action="AddExternal" method="post" id="formDetails"   >
+                <form action="AddExternal" method="post">
                     <select>
-                        <option value="todos">Todo</option>
+                        <option value="todos">To do</option>
                     </select>
-                    <button type="submit">Submit</button>
+                    <a class="btn btn-info" type="submit">Submit</a>
                 </form>
             </div>
         </main>

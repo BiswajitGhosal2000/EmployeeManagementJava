@@ -6,12 +6,11 @@
     <!-- Configuration for the default package. -->
     <package name="default" namespace="/" extends="struts-default">
         <action name="Login" class="com.exavalu.models.User" method="doLogin">
-            <result name="SUCCESS">showemployee.jsp</result>
+            <result name="SUCCESS">home.jsp</result>
             <result name="FAILURE">login.jsp</result>
         </action>
         <action name="Logout" class="com.exavalu.models.User" method="doLogOut">
-            <result name="SUCCESS">home.jsp</result>
-            <result name="FAILURE">home.jsp</result>
+            <result name="SUCCESS">landingpage.jsp</result>
         </action>
         <action name="AddEmployee" class="com.exavalu.models.Employee" method="addNewEmployee">
             <result name="SUCCESS">addemployee.jsp</result>
@@ -19,7 +18,7 @@
         </action>
         <action name="EditEmployee" class="com.exavalu.models.Employee" method="editEmployee">
             <result name="SUCCESS">editemployee.jsp</result>
-            <result name="FAILURE">showemployee.jsp</result>
+            <result name="FAILURE">editemployee.jsp</result>
         </action>
         <action name="SaveEmployee" class="com.exavalu.models.Employee" method="saveEmployee">
             <result name="SUCCESS">showemployee.jsp</result>
@@ -33,6 +32,10 @@
             <result name="SUCCESS">searchemployee.jsp</result>
             <result name="FAILURE">searchemployee.jsp</result>
         </action>
+<!--        <action name="ShowEmployee" class="com.exavalu.models.Employee" method="showEmployee">
+            <result name="SUCCESS">showemployee.jsp</result>
+            <result name="FAILURE">showemployee.jsp</result>
+        </action>-->
         <action name="PreSignUp" class="com.exavalu.models.User" method="preSignup">
             <result name="SUCCESS">login.jsp</result>
             <result name="STATELIST">statelist.jsp</result>

@@ -13,9 +13,11 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,6 +28,7 @@ import org.json.simple.parser.ParseException;
  * @author Biswajit
  */
 public class ExternalService {
+    static Logger logger = Logger.getLogger(ExternalService.class.getName());
     
     public static ArrayList getData() throws ParseException{
         
@@ -79,13 +82,13 @@ public class ExternalService {
                     System.out.println("Size of User List"+externals.size());
                 }
 
-	  } catch (MalformedURLException e) {
+	  } catch (MalformedURLException ex) {
 
-		e.printStackTrace();
+		logger.error(ex.getMessage()+LocalDateTime.now());
 
-	  } catch (IOException e) {
+	  } catch (IOException ex) {
 
-		e.printStackTrace();
+		logger.error(ex.getMessage()+LocalDateTime.now());
 
 	  }
          return externals;
@@ -122,8 +125,8 @@ public class ExternalService {
                 
                 con.close();
                 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
         }
         
         return result;

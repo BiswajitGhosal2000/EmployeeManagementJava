@@ -11,12 +11,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.time.LocalDateTime;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Biswajit
  */
 public class HttpURLConnectionDemo {
+    static Logger logger = Logger.getLogger(HttpURLConnectionDemo.class.getName());
 
 	private static final String USER_AGENT = "Mozilla/5.0";
 
@@ -56,6 +59,7 @@ public class HttpURLConnectionDemo {
                         
 		} else {
 			System.out.println("GET request did not work.");
+                        logger.error("GET request did not work." + LocalDateTime.now());
 		}
             
                 return response;
@@ -89,6 +93,7 @@ public class HttpURLConnectionDemo {
 			in.close();
 		} else {
 			System.out.println("POST request did not work.");
+                        logger.error("POST request did not work." + LocalDateTime.now());
 		}
 	}
 

@@ -10,19 +10,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Avijit Chattopadhyay
  */
 public class EmployeeService {
+    static Logger logger = Logger.getLogger(EmployeeService.class.getName());
 
     public static ArrayList getAllEmployees() {
-        ArrayList empList = new ArrayList();
-        String sql = "SELECT * FROM employees e join departments d join roles r where e.departmentId = d.departmentId and e.roleId = r.roleId and isDeleted=0 order by employeeId ";
-        try {
-            Connection con = JDBCConnectionManager.getConnection();
+        
+            ArrayList empList = new ArrayList();
+            String sql = "SELECT * FROM employees e join departments d join roles r where e.departmentId = d.departmentId and e.roleId = r.roleId and isDeleted=0 order by employeeId ";
+            
+            try (Connection con = JDBCConnectionManager.getConnection()){
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -41,14 +45,19 @@ public class EmployeeService {
                 emp.setSpecialAllowance(rs.getDouble("specialAllowance"));
                 empList.add(emp);
             }
+            
+            System.err.println("Total rows Returned:" + empList.size());
+            con.close();
+            
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
+           // Logger.logger.error("There is an error in fetching the employees",ex);
         }
-        System.err.println("Total rows Returned:" + empList.size());
-
-        return empList;
+            return empList;
     }
 
     public static Employee getEmployee(int employeeId) {
+        
         Employee emp = new Employee();
         try {
             Connection con = JDBCConnectionManager.getConnection();
@@ -74,6 +83,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
+//logger.error("There is an error in fetching the employees",ex);        
         }
         return emp;
     }
@@ -105,6 +116,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
+//logger.error("There is an error in fetching the employees",ex);        
         }
         return result;
     }
@@ -139,6 +152,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
+//logger.error("There is an error in fetching the employees",ex);        
         }
         return result;
     }
@@ -159,6 +174,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
+//logger.error("There is an error in fetching the employees",ex);        
         }
         return result;
     }
@@ -199,6 +216,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
+            logger.error(ex.getMessage()+LocalDateTime.now());
+//logger.error("There is an error in fetching the employees",ex);        
         }
         return emps;
     }

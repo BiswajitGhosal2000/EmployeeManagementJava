@@ -1,30 +1,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="com.exavalu.models.Employee"%>
-<%@page import="com.exavalu.services.RoleService"%>
-<%@page import="com.exavalu.services.DepartmentService"%>
-<%@page import="com.exavalu.models.Department"%>
-<%@page import="com.exavalu.models.Role"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:if test="${empty sessionScope.User}" >
     <jsp:forward page="login.jsp"/>
 </c:if>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Employee Web</title>
+        <title>Employee Management Web Application</title>
+        <link rel="SHORTCUT ICON" href="img/profilePhoto.png">
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/home.css"/>
+        <!-- Custom styles for this template -->
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     </head>
     <body class="text-center">
         <jsp:include page="menu.jsp"></jsp:include>
-            <main role="main">
+            <main role="main" id = "changeableArea">
+<!--                <script src="https://code.jquery.com/jquery-3.6.3.js" ></script>
+<script>
+function doSearch()
+        {
+            $.ajax({
+                url: 'SearchEmployee',
+                data: {
+                        firstName: $("#firstName").val(), lastName: $("#lastName").val(),
+                        gender: $("#gender").val(), departmentName: $("#departmentName").val(),
+                        roleName: $("#roleName").val()
+                    },
+                success: function (responseText) {
+                $("#changeableArea").html(responseText);
+            }
+        });
+}
+</script>-->
                 <div class="jumbotron m-auto p-5">
                     <div class="container">
                         <h1 class="display-5">Enter Details!</h1>
                     </div>
                     <div class="container" >
-                        <form class="form-inline" action="SearchEmployee" method="get">
+                        <form class="form-inline" action="SearchEmployee" method="post">
                             <input class="form-control" type="text" placeholder="First Name" name="firstName">          
                             <input class="form-control" type="text" placeholder="Last Name" name="lastName">
                             <select name="gender" class="form-control" id="gender">
@@ -35,25 +49,25 @@
                             <select name="departmentName" class="form-control" id="departmentName">
                                 <option value="" hidden>Department</option>
                             <c:forEach var="dept" items="${DeptList}">
-                                <option value="${dept.getDepartmentName()}"> ${dept.getDepartmentName()}Â  </option>
+                                <option value="${dept.getDepartmentName()}"> ${dept.getDepartmentName()}  </option>
                             </c:forEach>
                         </select>
                         <select name="roleName" class="form-control" id="roleName">
                             <option value="" hidden>Role</option>
                             <c:forEach var="role" items="${sessionScope.RoleList}">
-                                <option value="${role.getRoleName()}"> ${role.getRoleName()}Â  </option>
+                                <option value="${role.getRoleName()}"> ${role.getRoleName()}  </option>
                             </c:forEach>
                         </select>
-                        <button type="submit" class="form-control btn btn-primary ml-2 ">Search</button>
-                    </form>Â 
+                            <button class="form-control btn btn-primary ml-2" type="submit" >Search</button>
+                    </form> 
                 </div>
             </div>
             <c:if test="${not empty Emps}">
                 <div class="table-responsive justify-content-between">
-                    
+
                     <div class="form-group m-auto">
                         <label>Select No of Rows</label>
-                        <select classÂ  ="form-control" name="state" id="maxRows">
+                        <select class  ="form-control" name="state" id="maxRows">
                             <option value="5000">Show ALL Rows</option>
                             <option value="5">5</option>
                             <option value="10">10</option>
@@ -109,8 +123,9 @@
                     </table>
                 </div>
             </c:if>
+            <c:remove var="Emps" scope="session" ></c:remove>
             <jsp:include page="pagination.jsp"></jsp:include>
+            <script src="js/tablepagination.js"></script>
         </main>
-        <script src="js/tablepagination.js"></script>
     </body>
 </html>

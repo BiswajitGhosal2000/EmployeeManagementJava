@@ -49,7 +49,7 @@
                         <button class="w-50 btn btn btn-primary" type="submit">Log in</button>
                     </form>
                     <div class="card-footer">
-                        <a href="home.jsp">Home</a>
+                        <a href="landingpage.jsp">Home</a>
                     </div>
                 </div>
             </div>
