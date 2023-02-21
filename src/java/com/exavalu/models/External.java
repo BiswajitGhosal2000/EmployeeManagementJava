@@ -4,7 +4,6 @@
  */
 package com.exavalu.models;
 
-import static com.exavalu.models.User.logger;
 import com.exavalu.services.ExternalService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -74,24 +73,6 @@ public class External extends ActionSupport implements ApplicationAware, Session
         sessionMap = (SessionMap) session;
     }
 
-    public String addExternal() throws ParseException{
-        String result = "FAILURE";
-        ArrayList externals = ExternalService.getData();
-        boolean res = ExternalService.insertDataInDB(externals);
-        if (res) {
-            String successMgs = "Data Added in the DataBase!!!!";
-            sessionMap.put("SuccessMsg", successMgs);
-            result = "SUCCESS";
-            System.out.println("Returning From Success");
-        } else {
-            String failureMsg = "Something Went Wrong!!!!";
-            sessionMap.put("FailureMsg", failureMsg);
-            System.out.println("Returning From Failure");
-            logger.error("Couldn't add External Data" + LocalDateTime.now());
-        }
-        return result;
-    }
-
     /**
      * @return the userId
      */
@@ -118,5 +99,24 @@ public class External extends ActionSupport implements ApplicationAware, Session
      */
     public void setId(String id) {
         this.id = id;
+    }
+    
+    
+    public String addExternal() throws ParseException{
+        String result = "FAILURE";
+        ArrayList externals = ExternalService.getData();
+        boolean res = ExternalService.insertDataInDB(externals);
+        if (res) {
+            String successMgs = "Data Added in the DataBase!!!!";
+            sessionMap.put("SuccessMsg", successMgs);
+            result = "SUCCESS";
+            System.out.println("Returning From Success");
+        } else {
+            String failureMsg = "Something Went Wrong!!!!";
+            sessionMap.put("FailureMsg", failureMsg);
+            System.out.println("Returning From Failure");
+            logger.error("Couldn't add External Data" + LocalDateTime.now());
+        }
+        return result;
     }
 }

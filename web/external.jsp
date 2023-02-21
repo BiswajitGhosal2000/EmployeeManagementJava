@@ -36,7 +36,7 @@
                     <select>
                         <option value="todos">To do</option>
                     </select>
-                    <a class="btn btn-info" type="submit">Submit</a>
+                    <button class="btn btn-info" type="submit">Submit</button>
                 </form>
             </div>
         </main>
